@@ -1,5 +1,4 @@
-//型定義
-export type Blog = {
+export type BlogsDetail = {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -8,9 +7,23 @@ export type Blog = {
   title: string;
   content: string;
 };
-export type BlogResponse = {
+
+export type BlogsData = {
+  contents: [
+    {
+      id: string;
+      title: string;
+      createdAt: string;
+      url: BlogUrl;
+    }
+  ];
   totalCount: number;
   offset: number;
   limit: number;
-  contents: Blog[];
+};
+
+export type BlogUrl = {
+  url: string;
+  height: number;
+  width: number;
 };
