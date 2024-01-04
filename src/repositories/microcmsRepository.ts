@@ -1,5 +1,5 @@
 import type { MicroCMSQueries } from "microcms-js-sdk";
-import type { Blog, BlogResponse } from "../types/microcms";
+import type { Blog, BlogResponse } from "../types/microcmsTypes";
 import { client } from "../library/microcms";
 
 //APIの呼び出し
