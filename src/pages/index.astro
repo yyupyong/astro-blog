@@ -10,12 +10,12 @@ const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
 
 ---
 
-<Layout title="My Origin Blog">
+<Layout title="Yuuのブログ">
   <!-- header -->
   <header class="header">
     <div class="header-parent">
       <div class="text-title">
-        <h1 class="text-gradient">My Blog</h1>
+        <h1 class="text-gradient">Yuuのブログ</h1>
       </div>
       <div class="row">
         <nav class="header__nav">
@@ -25,7 +25,7 @@ const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
             </li>
             <li><a class="smoothscroll" href="">Profile</a></li>
             <li><a class="smoothscroll" href="">About me</a></li>
-            <li><a class="smoothscroll" href="">Contact</a></li>
+            <!-- <li><a class="smoothscroll" href="">Contact</a></li> -->
           </ul>
         </nav>
       </div>
@@ -67,7 +67,7 @@ const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
     --header-height: 7.2rem;
     z-index: 100;
     width: 100%;
-    background-color: black;
+    background-color: #263440;
     position: absolute;
     top: 0;
     left: 0;
