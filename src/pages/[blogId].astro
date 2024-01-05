@@ -13,6 +13,17 @@ import {
 /** utils */
 import { formatDate } from "../utils/formatDate";
 
+export async function getStaticPaths() {
+  const res = await getAllBlogs({ fields: ["id"] });
+  return res.contents.map((content) => {
+    return {
+      params: {
+        blogId: content.id,
+      },
+    };
+  });
+}
+
 const { blogId } = Astro.params;
 let blogData: BlogsDetail | null = null;
 
