@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         "app-primary": "#263440",
-        "app-white": "#E9F7FF#",
+        "app-white": "#E9F7FF",
       },
     },
   },
