@@ -9,28 +9,25 @@ import { getAllBlogs } from "../repositories/microcmsRepository";
 const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
 
 ---
-<Layout title="yupyong kimのブログ">
-  <header class="w-full bg-app-primary-800 px-48 pt-12">
-    <div class="flex justify-between">
-      <div class="px-10">
-        <h1 class="text-app-white text-4xl">yupyong kim</h1>
+<Layout title="Remedia Blog">
+  <header class="w-full bg-gray-900 px-8 pt-6">
+    <div class="flex justify-between items-center">
+      <div>
+        <h1 class="text-white text-5xl font-bold">Remedia Blog</h1>
+        <p class="text-gray-400 mt-2">リメディアでは、Web制作やマーケティングに関する情報や、知っておくと得する情報などを発信しています。</p>
       </div>
       <nav>
-        <ul class="w-full flex justify-between">
-          <li class="text-app-white pr-4">
-            <a href="#" class="hover:text-gray-300">Home</a>
-          </li>
-          <li class="text-app-white pr-4">
-            <a href="#" class="hover:text-gray-300">Profile</a>
-          </li>
-          <li class="text-app-white">
-            <a href="#" class="hover:text-gray-300">About me</a>
-          </li>
+        <ul class="flex space-x-6 text-white">
+          <li><a href="#" class="hover:text-gray-300">サービス</a></li>
+          <li><a href="#" class="hover:text-gray-300">会社情報</a></li>
+          <li><a href="#" class="hover:text-gray-300">採用情報</a></li>
+          <li><a href="#" class="hover:text-gray-300">お問い合わせ</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <main class="mt-32 justify-center p-6 px-48 ">
+  <main class="mt-12 p-8">
+    <h2 class="text-white text-3xl font-semibold mb-8">最新記事</h2>
     <div class="flex flex-wrap -m-4">
       {
         res.contents.map((content: any) => (
