@@ -1,21 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
-
-
-
 import { getAllBlogs } from "../repositories/microcmsRepository";
 
 const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
-
 ---
+
 <Layout title="Remedia Blog">
   <header class="w-full bg-gray-900 px-8 pt-6">
     <div class="flex justify-between items-center">
-      <div>
-        <h1 class="text-white text-5xl font-bold">Remedia Blog</h1>
-        <p class="text-gray-400 mt-2">リメディアでは、Web制作やマーケティングに関する情報や、知っておくと得する情報などを発信しています。</p>
-      </div>
+      <h1 class="text-white text-xl font-bold flex items-center">
+        <!-- <span class="text-white">Yuu</span> -->
+        <span class="text-sm ml-2 text-gray-400">blog</span>
+      </h1>
       <nav>
         <ul class="flex space-x-6 text-white">
           <li><a href="#" class="hover:text-gray-300">サービス</a></li>
@@ -24,6 +21,10 @@ const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
           <li><a href="#" class="hover:text-gray-300">お問い合わせ</a></li>
         </ul>
       </nav>
+    </div>
+    <div class="mt-8 text-center">
+      <h1 class="text-blue-500 text-5xl font-bold">Yupyong Kim</h1>
+      <p class="text-gray-400 mt-4">Thoughts, Interests, and Daily Reflections</p>
     </div>
   </header>
   <main class="mt-12 p-8">
