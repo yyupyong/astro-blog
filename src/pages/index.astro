@@ -15,10 +15,10 @@ const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
       </h1>
       <nav>
         <ul class="flex space-x-6 text-white">
-          <li><a href="#" class="hover:text-gray-300">サービス</a></li>
-          <li><a href="#" class="hover:text-gray-300">会社情報</a></li>
-          <li><a href="#" class="hover:text-gray-300">採用情報</a></li>
-          <li><a href="#" class="hover:text-gray-300">お問い合わせ</a></li>
+          <li><a href="#" class="hover:text-gray-300">About Me</a></li>
+          <li><a href="#" class="hover:text-gray-300">Interests</a></li>
+          <li><a href="#" class="hover:text-gray-300">Reflections</a></li>
+          <li><a href="#" class="hover:text-gray-300">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -27,19 +27,21 @@ const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
       <p class="text-gray-400 mt-4">Thoughts, Interests, and Daily Reflections</p>
     </div>
   </header>
-  <main class="mt-12 p-8">
-    <h2 class="text-white text-3xl font-semibold mb-8">最新記事</h2>
-    <div class="flex flex-wrap -m-4">
-      {
-        res.contents.map((content: any) => (
-          <Card
-            href={content.id}
-            title={content.title}
-            url={content.url}
-            createdAt={content.createdAt}
-          />
-        ))
-      }
+  <main class="mt-12 px-8">
+    <div class="container mx-auto px-4 lg:px-28 xl:px-28"> <!-- コンテナのパディングを120pxに設定 -->
+      <h2 class="text-white text-3xl font-semibold mb-8 text-left">Latest Articles</h2> <!-- テキストを左揃えに変更 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"> <!-- グリッドレイアウトとギャップを追加 -->
+        {
+          res.contents.map((content: any) => (
+            <Card
+              href={content.id}
+              title={content.title}
+              url={content.url}
+              createdAt={content.createdAt}
+            />
+          ))
+        }
+      </div>
     </div>
   </main>
 </Layout>
