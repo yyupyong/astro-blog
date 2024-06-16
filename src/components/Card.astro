@@ -15,63 +15,10 @@ export interface cardProps {
 const { href, title, url, createdAt } = Astro.props;
 ---
 
-<article class="post-list">
-  <a class="link" href={href}>
-    <img class="img" src={url} />
-    <h2 class="title">{title}</h2>
-    <span class="update-date"
-      >{new formatDate(createdAt).toJpDateWithWeek()}</span
-    >
+<article class="bg-white rounded-lg shadow-md transition-transform transform hover:scale-105"> <!-- カードのスタイルをTailwind CSSで設定 -->
+  <a class="block w-full h-full flex flex-col justify-between p-4" href={href}> <!-- カード内部のレイアウトを調整 -->
+    <img class="w-full h-48 object-cover rounded-t-lg" src={url} /> <!-- 画像の高さを設定し、角を丸くする -->
+    <h2 class="mt-4 text-lg font-medium">{title}</h2>
+    <span class="mt-2 text-gray-500">{new formatDate(createdAt).toJpDateWithWeek()}</span>
   </a>
 </article>
-
-<style>
-  .post-list {
-    margin: 0 5px 20px;
-    display: flex;
-    padding: 0.25rem;
-    background-color: white;
-    background-image: none;
-    background-size: 400%;
-    border-radius: 0.6rem;
-    background-position: 100%;
-    width: 30%;
-    transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  }
-
-  .post-list .link {
-    width: 100%;
-    text-decoration: none;
-    line-height: 1.4;
-    padding: 1rem 1.3rem;
-    border-radius: 0.35rem;
-    color: #111;
-    background-color: white;
-    opacity: 0.8;
-  }
-
-  .post-list:is(:hover, :focus-within) {
-    background-position: 0;
-    background-image: var(--accent-gradient);
-  }
-  .post-list:is(:hover, :focus-within) h2 {
-    color: rgb(var(--accent));
-  }
-
-  .post-list .link .title {
-    margin: 0;
-    font-weight: 400;
-    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .post-list .link .img {
-    width: 100%;
-    height: auto;
-  }
-
-  .post-list .link .update-date {
-    display: inline-block;
-    padding: 10px 0;
-  }
-</style>
