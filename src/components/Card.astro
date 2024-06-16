@@ -15,12 +15,12 @@ export interface cardProps {
 const { href, title, url, createdAt } = Astro.props;
 ---
 
-<article class="bg-white rounded-lg shadow-md transition-transform transform hover:scale-105"> <!-- カードのスタイルをTailwind CSSで設定 -->
-  <a class="block w-full h-full" href={href}> <!-- カード内部のレイアウトを調整 -->
-    <img class="w-full h-48 object-cover rounded-t-lg" src={url} /> <!-- 画像の高さを設定し、角を丸くする -->
-    <div class="p-4 flex flex-col justify-between h-48"> <!-- コンテンツ部分のスタイルを設定 -->
-      <div>
-        <h2 class="text-lg font-medium">{title}</h2>
+<article class="bg-white rounded-lg shadow-md transition-transform transform hover:scale-105 group"> <!-- groupクラスを追加 -->
+  <a class="block w-full h-full" href={href}>
+    <img class="w-full h-48 object-cover rounded-t-lg" src={url} alt="Blog image" /> <!-- 画像のURLを修正 -->
+    <div class="p-4 bg-black text-white flex flex-col justify-between h-48 rounded-b-lg">
+      <div class="flex-grow"> <!-- タイトルとタグのコンテナ -->
+        <h2 class="text-lg font-semibold group-hover:text-blue-500">{title}</h2> <!-- タイトルのフォントウェイトを設定し、ホバー時の色変更を追加 -->
         <div class="mt-2">
           <!-- ここでタグを表示 -->
           <span class="text-blue-500 mr-2">#タグ1</span>
@@ -28,7 +28,9 @@ const { href, title, url, createdAt } = Astro.props;
           <span class="text-blue-500">#タグ3</span>
         </div>
       </div>
-      <span class="text-gray-500 mt-4 self-end">{new formatDate(createdAt).toJpDateWithWeek()}</span>
+      <div class="mt-4 self-end text-gray-500"> <!-- 日付を下寄せに設定 -->
+        {new formatDate(createdAt).toJpDateWithWeek()}
+      </div>
     </div>
   </a>
 </article>
