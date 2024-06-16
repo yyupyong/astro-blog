@@ -3,15 +3,34 @@ import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import { getAllBlogs } from "../repositories/microcmsRepository";
 
-const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
+const res = await getAllBlogs({
+  fields: [
+    "id",
+    "title",
+    "createdAt",
+    "updatedAt",
+    "publishedAt",
+    "revisedAt",
+    "content",
+    "eyecatch.url",
+    "eyecatch.height",
+    "eyecatch.width",
+    "category.id",
+    "category.createdAt",
+    "category.updatedAt",
+    "category.publishedAt",
+    "category.revisedAt",
+    "category.name"
+  ]
+});
+console.log(res, "<<< response all data");
 ---
 
 <Layout title="Remedia Blog">
   <header class="w-full bg-gray-900 px-8 pt-6">
     <div class="flex justify-between items-center">
       <h1 class="text-white text-xl font-bold flex items-center">
-        <!-- <span class="text-white">Yuu</span> -->
-        <span class="text-sm ml-2 text-gray-400">blog</span>
+        <span class="text-sm ml-2 text-gray-400">personal blog</span>
       </h1>
       <nav>
         <ul class="flex space-x-6 text-white">
@@ -28,19 +47,17 @@ const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url"] });
     </div>
   </header>
   <main class="mt-12 px-8">
-    <div class="container mx-auto px-4 lg:px-28 xl:px-28"> <!-- コンテナのパディングを120pxに設定 -->
-      <h2 class="text-white text-3xl font-semibold mb-8 text-left">Latest Articles</h2> <!-- テキストを左揃えに変更 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"> <!-- グリッドレイアウトとギャップを追加 -->
-        {
-          res.contents.map((content: any) => (
-            <Card
-              href={content.id}
-              title={content.title}
-              url={content.url}
-              createdAt={content.createdAt}
-            />
-          ))
-        }
+    <div class="container mx-auto px-4 lg:px-28 xl:px-28">
+      <h2 class="text-white text-3xl font-semibold mb-8 text-left">Latest Articles</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {res.contents.map((content: any) => (
+          <Card
+            href={content.id}
+            title={content.title}
+            url={content.eyecatch?.url}
+            createdAt={content.createdAt}
+          />
+        ))}
       </div>
     </div>
   </main>
