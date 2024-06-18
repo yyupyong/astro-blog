@@ -32,7 +32,7 @@ console.log(res, "<<< response all data");
       <h1 class="text-white text-xl font-bold flex items-center">
         <span class="text-sm ml-2 text-gray-400">personal blog</span>
       </h1>
-      <nav>
+      <nav class="hidden md:block">
         <ul class="flex space-x-6 text-white">
           <li><a href="#" class="hover:text-gray-300">About Me</a></li>
           <li><a href="#" class="hover:text-gray-300">Interests</a></li>
@@ -40,6 +40,21 @@ console.log(res, "<<< response all data");
           <li><a href="#" class="hover:text-gray-300">Contact</a></li>
         </ul>
       </nav>
+      <div class="md:hidden">
+        <button id="menu-btn" class="text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden mt-4 border-t border-gray-700 pt-4">
+      <ul class="grid grid-cols-2 gap-4 text-white text-center">
+        <li><a href="#" class="hover:text-gray-300 block">About Me</a></li>
+        <li><a href="#" class="hover:text-gray-300 block">Interests</a></li>
+        <li><a href="#" class="hover:text-gray-300 block">Reflections</a></li>
+        <li><a href="#" class="hover:text-gray-300 block">Contact</a></li>
+      </ul>
     </div>
     <div class="mt-8 text-center">
       <h1 class="text-blue-500 text-5xl font-bold">Yupyong Kim</h1>
@@ -62,3 +77,16 @@ console.log(res, "<<< response all data");
     </div>
   </main>
 </Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  });
+</script>
