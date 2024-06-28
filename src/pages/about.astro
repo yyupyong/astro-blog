@@ -1,0 +1,93 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const books = [
+    {
+        title: "限りなく透明に近いブルー",
+        link: "https://www.amazon.co.jp/dp/4101123512",
+    },
+    {
+        title: "イン・ザ・ミソスープ",
+        link: "https://www.amazon.co.jp/dp/4167553057",
+    },
+    {
+        title: "コインロッカー・ベイビーズ",
+        link: "https://www.amazon.co.jp/dp/4101123520",
+    },
+    {
+        title: "69 sixty nine",
+        link: "https://www.amazon.co.jp/dp/4101123547",
+    },
+    {
+        title: "オーディション",
+        link: "https://www.amazon.co.jp/dp/4101123539",
+    },
+];
+---
+
+<Layout title="About Me">
+    <main class="mt-12 px-8">
+        <div class="container mx-auto px-4 lg:px-28 xl:px-28">
+            <h1 class="text-5xl font-bold mb-4">About Me</h1>
+            <p class="text-lg">
+                I played rugby up to university, and I continue to play rugby at
+                a company as a working adult.
+            </p>
+            <p class="text-lg">
+                My hobbies are music, cycling, and reading. My favorite music
+                genres are R&B and Hiphop, and I enjoy going to music bars. In
+                terms of reading, I like Ryu Murakami and Tachibana Akira.
+            </p>
+            <p class="text-lg">
+                I am half Korean and half Japanese, born in Osaka.
+            </p>
+            <p class="text-lg">
+                Currently, I work as a mobile app engineer with a primary tech
+                stack of Flutter and Android.
+            </p>
+            <div class="mt-8">
+                <h2 class="text-3xl font-bold mb-4">Favorite Artists</h2>
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                >
+                    <iframe
+                        src="https://open.spotify.com/embed/artist/7tYKF4w9nC0nq9CsPZTHyP"
+                        width="100%"
+                        height="380"
+                        allowtransparency="true"
+                        allow="encrypted-media"></iframe>
+                    <iframe
+                        src="https://open.spotify.com/embed/artist/3dkhk6RTgOerN0NQEmt8Nc"
+                        width="100%"
+                        height="380"
+                        allowtransparency="true"
+                        allow="encrypted-media"></iframe>
+                    <iframe
+                        src="https://open.spotify.com/embed/artist/0TImkz4nPqjegtVSMZnMRq"
+                        width="100%"
+                        height="380"
+                        allowtransparency="true"
+                        allow="encrypted-media"></iframe>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h2 class="text-3xl font-bold mb-4">Favorite Books</h2>
+                <ul class="list-disc list-inside">
+                    {
+                        books.map((book) => (
+                            <li>
+                                <a
+                                    href={book.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {book.title}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </div>
+    </main>
+</Layout>
