@@ -1,29 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
-import { getAllBlogs } from "../repositories/microcmsRepository";
+import { getCollection } from "astro:content";
 
-const res = await getAllBlogs({
-  fields: [
-    "id",
-    "title",
-    "createdAt",
-    "updatedAt",
-    "publishedAt",
-    "revisedAt",
-    "content",
-    "eyecatch.url",
-    "eyecatch.height",
-    "eyecatch.width",
-    "category.id",
-    "category.createdAt",
-    "category.updatedAt",
-    "category.publishedAt",
-    "category.revisedAt",
-    "category.name",
-  ],
-});
-console.log(res, "<<< response all data");
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const selectedTag = Astro.url.searchParams.get("tag");
+
+const tagCounts = posts.reduce((acc, post) => {
+  for (const tag of post.data.tags) {
+    acc.set(tag, (acc.get(tag) ?? 0) + 1);
+  }
+  return acc;
+}, new Map<string, number>());
+
+const allTags = [...tagCounts.keys()].sort((a, b) => a.localeCompare(b));
+
+const filteredPosts = selectedTag
+  ? posts.filter((post) => post.data.tags.includes(selectedTag))
+  : posts;
 ---
 
 <Layout title="yupyong' blog">
@@ -35,26 +32,48 @@ console.log(res, "<<< response all data");
           Thoughts, Interests, and Daily Reflections
         </p>
       </div>
-      <div class="flex justify-center items-center mt-16">
-        <p class="text-gray-500 text-xl md:text-3xl font-medium">
-          Our blog is under construction. Stay tuned for exciting content coming soon!
-        </p>
-      </div>
-      <!-- <h2 class="text-white text-3xl font-semibold mb-8 text-left py-8">
+      <h2 class="text-white text-3xl font-semibold mb-8 text-left py-8">
         Latest Articles
       </h2>
+      <div class="mb-6 flex flex-wrap gap-3">
+        <a
+          href="/"
+          class={`rounded-full border px-4 py-2 text-sm transition ${
+            selectedTag === null
+              ? "border-blue-500 bg-blue-500 text-white"
+              : "border-gray-600 text-gray-300 hover:border-blue-400 hover:text-white"
+          }`}
+        >
+          All ({posts.length})
+        </a>
+        {
+          allTags.map((tag) => (
+            <a
+              href={`/?tag=${encodeURIComponent(tag)}`}
+              class={`rounded-full border px-4 py-2 text-sm transition ${
+                selectedTag === tag
+                  ? "border-blue-500 bg-blue-500 text-white"
+                  : "border-gray-600 text-gray-300 hover:border-blue-400 hover:text-white"
+              }`}
+            >
+              #{tag} ({tagCounts.get(tag) ?? 0})
+            </a>
+          ))
+        }
+      </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {
-          res.contents.map((content: any) => (
+          filteredPosts.map((post) => (
             <Card
-              href={content.id}
-              title={content.title}
-              url={content.eyecatch?.url}
-              createdAt={content.createdAt}
+              href={post.slug}
+              title={post.data.title}
+              url={post.data.eyecatch}
+              createdAt={post.data.pubDate.toISOString()}
+              tags={post.data.tags}
             />
           ))
         }
-      </div> -->
+      </div>
     </div>
   </main>
 </Layout>

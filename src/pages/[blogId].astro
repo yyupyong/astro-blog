@@ -1,45 +1,34 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
-/** types */
-import type { BlogsDetail } from "../types/microcmsTypes";
-
-/** api */
-import {
-  getAllBlogs,
-  getBlogsDetail,
-} from "../repositories/microcmsRepository";
+import { getCollection } from "astro:content";
 
 /** utils */
 import { formatDate } from "../utils/formatDate";
 
+export const prerender = true;
+
 export async function getStaticPaths() {
-  const res = await getAllBlogs({ fields: ["id"] });
-  return res.contents.map((content) => {
+  const posts = await getCollection("blog");
+  return posts
+    .filter((post) => !post.data.draft)
+    .map((post) => {
     return {
       params: {
-        blogId: content.id,
+        blogId: post.slug,
       },
+      props: { post },
     };
-  });
+    });
 }
 
-const { blogId } = Astro.params;
-let blogData: BlogsDetail | null = null;
-
-if (blogId) {
-  blogData = await getBlogsDetail(blogId);
-}
+const { post } = Astro.props;
+const { Content } = await post.render();
 ---
 
 <Layout title="blog">
   <main>
-    <h1>{blogData ? blogData.title : ""}</h1>
-    <p>
-      投稿日：{
-        blogData ? new formatDate(blogData.revisedAt).toJpDateWithWeek() : ""
-      }
-    </p>
-    <div set:html={blogData ? blogData.content : ""} />
+    <h1>{post.data.title}</h1>
+    <p>投稿日：{new formatDate(post.data.pubDate).toJpDateWithWeek()}</p>
+    <Content />
   </main>
 </Layout>
