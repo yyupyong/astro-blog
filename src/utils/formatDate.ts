@@ -7,23 +7,24 @@ export class formatDate {
   }
 
   /**
-   * yyyy年mm月dd日に整形する
-   * @returns yyyy年mm月dd日
+   * yyyy/mm/dd に整形する
+   * @returns yyyy/mm/dd
    */
   toJpDateString = () => {
-    return `${this.#date.getFullYear()}年${
-      this.#date.getMonth() + 1
-    }月${this.#date.getDate()}日`;
+    const year = this.#date.getFullYear();
+    const month = String(this.#date.getMonth() + 1).padStart(2, "0");
+    const day = String(this.#date.getDate()).padStart(2, "0");
+    return `${year}/${month}/${day}`;
   };
 
   /**
-   * yyyy年mm月dd日（曜日）に整形する
-   * @returns yyyy年mm月dd日（曜日）
+   * yyyy/mm/dd ddd に整形する
+   * @returns yyyy/mm/dd ddd
    */
   toJpDateWithWeek = () => {
-    const week = ["日", "月", "火", "水", "木", "金", "土"];
+    const week = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
     const dayOfWeek = week[this.#date.getDay()];
     if (this.#date === undefined || dayOfWeek === undefined) return "ー";
-    return `${this.toJpDateString()}（${dayOfWeek}）`;
+    return `${this.toJpDateString()} ${dayOfWeek}`;
   };
 }
