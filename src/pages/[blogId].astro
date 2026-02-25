@@ -29,6 +29,33 @@ const { Content } = await post.render();
   <main class="px-8 py-10 md:px-16 lg:px-28">
     <h1 class="text-3xl md:text-4xl font-bold mb-3">{post.data.title}</h1>
     <p class="text-gray-400 mb-8">{new formatDate(post.data.pubDate).toJpDateWithWeek()}</p>
-    <Content />
+    <article class="blog-content">
+      <Content />
+    </article>
   </main>
 </Layout>
+
+<style>
+  .blog-content :global(p) {
+    margin: 1rem 0;
+    line-height: 1.9;
+  }
+
+  .blog-content :global(h1),
+  .blog-content :global(h2),
+  .blog-content :global(h3) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .blog-content :global(ul),
+  .blog-content :global(ol) {
+    margin: 1rem 0;
+    padding-left: 1.25rem;
+  }
+
+  .blog-content :global(li) {
+    margin: 0.35rem 0;
+  }
+ </style>
