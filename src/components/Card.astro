@@ -11,28 +11,31 @@ export interface cardProps {
   tags?: string[];
 }
 
-const { href, title, url, createdAt, tags = [] } = Astro.props;
+const { href, title, createdAt, tags = [] } = Astro.props;
 ---
 
-<article class="bg-white rounded-lg shadow-md transition-transform transform hover:scale-105 group"> <!-- groupクラスを追加 -->
-  <a class="block w-full h-full" href={href}>
-    <img class="w-full h-48 object-cover rounded-t-lg" src={url ?? "https://placehold.jp/3d4070/ffffff/800x600.png?text=No+Image"} alt="Blog image" /> <!-- 画像未設定時はプレースホルダーを表示 -->
-    <div class="p-4 bg-black text-white flex flex-col justify-between h-48 rounded-b-lg">
-      <div class="flex-grow"> <!-- タイトルとタグのコンテナ -->
-        <h2 class="text-lg font-semibold group-hover:text-blue-500">{title}</h2> <!-- タイトルのフォントウェイトを設定し、ホバー時の色変更を追加 -->
-        <div class="mt-2">
-          {
-            tags.length > 0 ? (
-              tags.slice(0, 3).map((tag: string) => <span class="text-blue-500 mr-2">#{tag}</span>)
-            ) : (
-              <span class="text-gray-500 mr-2">#untagged</span>
-            )
-          }
-        </div>
-      </div>
-      <div class="mt-4 self-end text-gray-500"> <!-- 日付を下寄せに設定 -->
-        {new formatDate(createdAt).toJpDateWithWeek()}
-      </div>
+<article class="group rounded-xl border border-gray-800 bg-gray-900/70 transition hover:-translate-y-1 hover:border-blue-500/70 hover:shadow-lg hover:shadow-blue-500/10">
+  <a class="block h-full p-5 md:p-6" href={href}>
+    <div class="mb-4 flex flex-wrap gap-2">
+      {
+        tags.length > 0 ? (
+          tags.slice(0, 3).map((tag: string) => (
+            <span class="rounded-full border border-blue-500/40 bg-blue-500/10 px-2.5 py-1 text-xs text-blue-300">
+              #{tag}
+            </span>
+          ))
+        ) : (
+          <span class="rounded-full border border-gray-700 px-2.5 py-1 text-xs text-gray-400">#untagged</span>
+        )
+      }
+    </div>
+
+    <h2 class="min-h-[3.5rem] text-lg md:text-xl font-semibold leading-snug text-white transition group-hover:text-blue-300">
+      {title}
+    </h2>
+
+    <div class="mt-6 pt-4 border-t border-gray-800 text-sm text-gray-400">
+      {new formatDate(createdAt).toJpDateWithWeek()}
     </div>
   </a>
 </article>
